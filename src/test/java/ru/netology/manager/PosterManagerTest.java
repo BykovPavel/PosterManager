@@ -9,14 +9,14 @@ public class PosterManagerTest {
 
 
     @Test
-    public void shouldAdd0Movies() {
+    public void shouldShow0Movies() {
         String[] expected = {};
         String[] actual = manager.findAll();
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldAdd1Movie() {
+    public void shouldShow1Movie() {
         manager.add("Movie #1");
         String[] expected = {"Movie #1"};
         String[] actual = manager.findAll();
@@ -24,7 +24,7 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void shouldAdd11Movies() {
+    public void shouldShow11Movies() {
         manager.add("Movie #1");
         manager.add("Movie #2");
         manager.add("Movie #3");
@@ -42,14 +42,14 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void shouldShow0Movies() {
+    public void shouldShow0LastMovies() {
         String[] expected = {};
         String[] actual = manager.findLast();
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldShow1Movie() {
+    public void shouldShow1LastMovie() {
         manager.add("Movie #1");
         String[] expected = {"Movie #1"};
         String[] actual = manager.findLast();
@@ -57,7 +57,7 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void shouldShow10Movies() {
+    public void shouldShow10LastMovies() {
         manager.add("Movie #1");
         manager.add("Movie #2");
         manager.add("Movie #3");
@@ -74,7 +74,7 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void shouldShow5Movies() {
+    public void shouldShow5LastMovies() {
         PosterManager manager = new PosterManager(5);
         manager.add("Movie #1");
         manager.add("Movie #2");

@@ -1,93 +1,76 @@
 package ru.netology.manager;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import ru.netology.domain.Poster;
+import ru.netology.repository.PosterManagerRepository;
+import static org.mockito.Mockito.*;
 
 public class PosterManagerTest {
 
-    PosterManager manager = new PosterManager();
+    PosterManagerRepository repo = Mockito.mock(PosterManagerRepository.class);
+    PosterManager manager = new PosterManager(repo);
 
+    Poster movie1 = new Poster(1, "Movie #1");
+    Poster movie2 = new Poster(2, "Movie #2");
+    Poster movie3 = new Poster(3, "Movie #3");
+    Poster movie4 = new Poster(4, "Movie #4");
+    Poster movie5 = new Poster(5, "Movie #5");
+    Poster movie6 = new Poster(6, "Movie #6");
+    Poster movie7 = new Poster(7, "Movie #7");
+    Poster movie8 = new Poster(8, "Movie #8");
+    Poster movie9 = new Poster(9, "Movie #9");
+    Poster movie10 = new Poster(10, "Movie #10");
+    Poster movie11 = new Poster(11, "Movie #11");
 
-    @Test
-    public void shouldShow0Movies() {
-        String[] expected = {};
-        String[] actual = manager.findAll();
-        Assertions.assertArrayEquals(expected, actual);
+    @BeforeEach
+    public void setup() {
+        manager.add(movie1);
+        manager.add(movie2);
+        manager.add(movie3);
+        manager.add(movie4);
+        manager.add(movie5);
+        manager.add(movie6);
+        manager.add(movie7);
+        manager.add(movie8);
+        manager.add(movie9);
+        manager.add(movie10);
+        manager.add(movie11);
     }
 
-    @Test
-    public void shouldShow1Movie() {
-        manager.add("Movie #1");
-        String[] expected = {"Movie #1"};
-        String[] actual = manager.findAll();
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldShow11Movies() {
-        manager.add("Movie #1");
-        manager.add("Movie #2");
-        manager.add("Movie #3");
-        manager.add("Movie #4");
-        manager.add("Movie #5");
-        manager.add("Movie #6");
-        manager.add("Movie #7");
-        manager.add("Movie #8");
-        manager.add("Movie #9");
-        manager.add("Movie #10");
-        manager.add("Movie #11");
-        String[] expected = {"Movie #1", "Movie #2", "Movie #3", "Movie #4", "Movie #5", "Movie #6", "Movie #7", "Movie #8", "Movie #9", "Movie #10", "Movie #11"};
-        String[] actual = manager.findAll();
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldShow0LastMovies() {
-        String[] expected = {};
-        String[] actual = manager.findLast();
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldShow1LastMovie() {
-        manager.add("Movie #1");
-        String[] expected = {"Movie #1"};
-        String[] actual = manager.findLast();
-        Assertions.assertArrayEquals(expected, actual);
-    }
 
     @Test
     public void shouldShow10LastMovies() {
-        manager.add("Movie #1");
-        manager.add("Movie #2");
-        manager.add("Movie #3");
-        manager.add("Movie #4");
-        manager.add("Movie #5");
-        manager.add("Movie #6");
-        manager.add("Movie #7");
-        manager.add("Movie #8");
-        manager.add("Movie #9");
-        manager.add("Movie #10");
-        String[] expected = {"Movie #10", "Movie #9", "Movie #8", "Movie #7", "Movie #6", "Movie #5", "Movie #4", "Movie #3", "Movie #2", "Movie #1"};
-        String[] actual = manager.findLast();
+        Poster[] movies = { movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10 };
+        doReturn(movies).when(repo).findAll();
+        Poster[] expected = { movie10, movie9, movie8, movie7, movie6, movie5, movie4, movie3, movie2, movie1 };
+        Poster[] actual = manager.findLast();
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldShow5LastMovies() {
-        PosterManager manager = new PosterManager(5);
-        manager.add("Movie #1");
-        manager.add("Movie #2");
-        manager.add("Movie #3");
-        manager.add("Movie #4");
-        manager.add("Movie #5");
-        manager.add("Movie #6");
-        manager.add("Movie #7");
-        manager.add("Movie #8");
-        manager.add("Movie #9");
-        manager.add("Movie #10");
-        String[] expected = {"Movie #10", "Movie #9", "Movie #8", "Movie #7", "Movie #6"};
-        String[] actual = manager.findLast();
+        Poster[] movies = { movie1, movie2, movie3, movie4, movie5 };
+        doReturn(movies).when(repo).findAll();
+        Poster[] expected = { movie5, movie4, movie3, movie2, movie1 };
+        Poster[] actual = manager.findLast();
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldShow11Movies() {
+        Poster[] movies = { movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11 };
+        doReturn(movies).when(repo).findAll();
+        Poster[] expected = { movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11 };
+        Poster[] actual = manager.showAll();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+
+
+
+
+
 }

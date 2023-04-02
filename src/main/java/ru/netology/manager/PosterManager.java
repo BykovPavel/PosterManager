@@ -12,7 +12,7 @@ public class PosterManager {
         this.limit = 10;
     }
 
-    public void PosterManager(PosterManagerRepository repo, int limit) {
+    public PosterManager(PosterManagerRepository repo, int limit) {
         this.repo = repo;
         this.limit = limit;
     }

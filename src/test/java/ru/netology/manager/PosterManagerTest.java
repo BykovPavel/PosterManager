@@ -67,6 +67,15 @@ public class PosterManagerTest {
         Poster[] actual = manager.showAll();
         Assertions.assertArrayEquals(expected, actual);
     }
+    @Test
+    public void shouldShow11LastMovies() {
+        PosterManager manager = new PosterManager(repo, 11);
+        Poster[] movies = { movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11 };
+        doReturn(movies).when(repo).findAll();
+        Poster[] expected = { movie11, movie10, movie9, movie8, movie7, movie6, movie5, movie4, movie3, movie2, movie1 };
+        Poster[] actual = manager.findLast();
+        Assertions.assertArrayEquals(expected, actual);
+    }
 
 
 
